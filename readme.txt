@@ -1,4 +1,4 @@
-<h1> TerraFirmata</h1>
+#TerraFirmata<
 This software is a basic datalogging system based around Arduino/Rapsberry Pi / Python.
 
 We are using the pyfirmats library for the raspberry pi.
@@ -8,7 +8,11 @@ The firmware is a modifired version of the StandardFirmata libraries for Plant C
 This version of the firmware allows for reading of a DHT Temperature and humidity sensor as well as output to an auilary LCD for data checking.
 
 
-<h2>Requirements</h2>
+
+##Requirements
+
+PyFirmata
+https://github.com/tino/pyFirmata
 
 Firmata Library
 https://github.com/firmata/arduino
