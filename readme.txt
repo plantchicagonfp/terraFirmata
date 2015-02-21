@@ -1,4 +1,4 @@
-#TerraFirmata<
+# TerraFirmata
 This software is a basic datalogging system based around Arduino/Rapsberry Pi / Python.
 
 We are using the pyfirmats library for the raspberry pi.
@@ -9,7 +9,7 @@ This version of the firmware allows for reading of a DHT Temperature and humidit
 
 
 
-##Requirements
+## Requirements
 
 PyFirmata
 https://github.com/tino/pyFirmata
