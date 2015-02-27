@@ -62,6 +62,9 @@ DHT dht(DHTPIN, DHTTYPE);
 // create a robotgeekLCD object named 'lcd'
 RobotGeekLCD lcd;
 
+int humidity = 0;
+int temperature = 0;
+
 /*==============================================================================
  * GLOBAL VARIABLES
  *============================================================================*/
@@ -82,6 +85,10 @@ int pinState[TOTAL_PINS];           // any value that has been written
 unsigned long currentMillis;        // store the current value from millis()
 unsigned long previousMillis;       // for comparison with currentMillis
 int samplingInterval = 19;          // how often to run the main loop (in ms)
+
+unsigned long currentMillisLCD;        // store the current value from millis()
+unsigned long previousMillisLCD;       // for comparison with currentMillis
+int samplingIntervalLCD = 1000;          // how often to run the main loop (in ms)
 
 /* i2c data */
 struct i2c_device_info {
@@ -638,6 +645,9 @@ void loop()
    * 60 bytes. use a timer to sending an event character every 4 ms to
    * trigger the buffer to dump. */
 
+  
+
+
   currentMillis = millis();
   if (currentMillis - previousMillis > samplingInterval) 
   {
@@ -656,17 +666,13 @@ void loop()
     }
     //send the temperature and humidity data over an anlog channel on pins 8 and 9 (not 6 and 7)
 
-    int humidity = (int)dht.readHumidity();
-    int temperature = (int)dht.readTemperature();
+     humidity = (int)dht.readHumidity();
+     temperature = (int)dht.readTemperature();
     Firmata.sendAnalog(8, humidity);
     Firmata.sendAnalog(9, temperature);
 
-    // (note: line 1 is the second row, since counting begins with 0):
-    lcd.setCursor(0, 1);
-    // print the number of seconds since reset:
-    lcd.print(humidity);
-    lcd.print(" ");
-    lcd.print(temperature);
+  
+   
 
     // report i2c data for all device with read continuous mode enabled
     if (queryIndex > -1) 
@@ -677,4 +683,66 @@ void loop()
       }
     }
   }
+  
+  
+  
+  currentMillisLCD = millis();
+  if (currentMillisLCD - previousMillisLCD > samplingIntervalLCD) 
+  {
+    previousMillisLCD = currentMillisLCD;
+     lcd.setCursor(0, 0);
+    lcd.print("D:");
+    lcd.print(convertIRvoltsToMM(analogRead(0))/10);
+    lcd.print(" ");
+    lcd.print(" ");
+    delay(2);
+    lcd.setCursor(5, 0);
+    lcd.print("D:");
+    lcd.print(convertIRvoltsToMM(analogRead(1))/10);
+    lcd.print(" ");
+    lcd.print(" ");
+    lcd.print(" ");
+    delay(2);
+    lcd.setCursor(11, 0);
+    lcd.print("D:");
+    lcd.print(convertIRvoltsToMM(analogRead(2))/10);
+    lcd.print(" ");
+    lcd.print(" ");
+    delay(2);
+    
+    
+    
+
+    // (note: line 1 is the second row, since counting begins with 0):
+    lcd.setCursor(0, 1);
+    // print the number of seconds since reset:
+    lcd.print("H:");
+    lcd.print(humidity);
+    lcd.print(" ");
+    lcd.print(temperature);
+    
+    
+     lcd.setCursor(0, 1);
+    lcd.print("H:");
+    lcd.print(humidity);
+    lcd.print(" ");
+    delay(2);
+    lcd.print("T:");
+    lcd.print(temperature);
+    lcd.print(" ");
+    delay(2);
+    lcd.print("M:");
+    lcd.print(analogRead(3;/[====-));
+    lcd.print(" ");
+    delay(2);
+    
+    
+  }
+    
+    
+}
+
+
+int convertIRvoltsToMM(float v) { 
+    return -0.00003983993846*v*v*v+ 0.0456899769 *v*v - 17.48535575 * v + 2571.052715; 
 }
