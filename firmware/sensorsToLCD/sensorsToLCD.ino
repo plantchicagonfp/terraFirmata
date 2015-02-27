@@ -1,3 +1,12 @@
+
+
+// Example testing sketch for various DHT humidity/temperature sensors
+// taken from code  Written by ladyada, public domain
+#include "DHT.h"
+#define DHTPIN 4     // what pin we're connected to
+#define DHTTYPE DHT11   // DHT 11 
+DHT dht(DHTPIN, DHTTYPE);
+
 //include the I2C Wire library - needed for communication with the I2C chip attached to the LCD manual 
 #include <Wire.h> 
 // include the RobotGeekLCD library
@@ -84,7 +93,7 @@ void loop()
     
     // MOISTURE
     lcd.print("M:");
-    lcd.print(analogRead(3;/[====-));
+    lcd.print(analogRead(3));
     lcd.print(" ");
     delay(2);
     
